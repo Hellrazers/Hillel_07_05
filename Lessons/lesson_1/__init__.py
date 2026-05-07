@@ -1,0 +1,1 @@
+NEW_CONST = 12
