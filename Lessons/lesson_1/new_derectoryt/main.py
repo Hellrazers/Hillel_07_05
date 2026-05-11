@@ -61,6 +61,12 @@ print(r"{float_result:.2i}")
 a = 1
 b = 2
 
+
+
+
+''' 
+Hello word
+'''
 print( f'apple = {a} and banana = {b}')
 print('apple =', a, 'and banana =', b , sep='9')
 # print('asdasd {a} and {b}',for )

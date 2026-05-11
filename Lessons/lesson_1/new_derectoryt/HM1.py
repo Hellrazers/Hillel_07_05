@@ -13,6 +13,11 @@ for k in range(5):
 
 
 
+
+
+divider = 1/1
+
+
 ''''
 asdasda sd asd asd 
 ї
