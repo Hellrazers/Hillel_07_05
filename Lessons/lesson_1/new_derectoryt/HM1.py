@@ -10,6 +10,10 @@ if True:
 
 for k in range(5):
     print(f"{k} - {hello} {world}!")
+
+
+
+
 #
 # # task 03  == Вcтавте пропущену змінну у ф-цію print
 # for letter in "Hello world!":
