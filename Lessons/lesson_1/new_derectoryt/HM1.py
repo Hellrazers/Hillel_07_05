@@ -13,10 +13,7 @@ for k in range(5):
 
 
 
-for k in range(5):
-    print(f"{k} - {hello} {world}!")
-    print(f"{k} - {hello} {world}!")
-    print(f'P{k} - {hello} {world}!' )
+
 
 divider = 1/1
 
