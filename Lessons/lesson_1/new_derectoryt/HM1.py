@@ -3,7 +3,7 @@
 #     print("world!")
 #
 # # task 02 == Виправте синтаксичні помилки
-hello = "Hello"
+hello = 1
 world = "world"
 if True:
     print(f"{hello} {world}!")
@@ -13,8 +13,7 @@ for k in range(5):
 
 
 
-for k in range(5):
-    print(f'P{k} - {hello} {world}!' )
+
 
 divider = 1/1
 
