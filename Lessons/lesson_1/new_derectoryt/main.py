@@ -61,7 +61,7 @@ print(r"{float_result:.2i}")
 a = 1
 b = 2
 
-
+new_text = ''
 
 
 ''' 
