@@ -8,6 +8,8 @@ world = "world"
 if True:
     print(f"{hello} {world}!")
 
+print(f"{hello} {world}!")
+print(f"{hello} {world}!")
 for k in range(5):
     print(f"{k} - {hello} {world}!")
 
