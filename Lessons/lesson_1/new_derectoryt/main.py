@@ -65,7 +65,7 @@ new_text = ''
 
 
 ''' 
-Hello word 123 123 123 
+Hello asdasdas d 
 '''
 print( f'apple = {a} and banana = {b}')
 print('apple =', a, 'and banana =', b , sep='9')
