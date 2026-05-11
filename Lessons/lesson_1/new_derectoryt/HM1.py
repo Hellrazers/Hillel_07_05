@@ -13,7 +13,9 @@ for k in range(5):
 
 
 
-
+''''
+asdasda sd asd asd 
+'''
 #
 # # task 03  == Вcтавте пропущену змінну у ф-цію print
 # for letter in "Hello world!":
