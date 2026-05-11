@@ -15,6 +15,10 @@ for k in range(5):
 
 ''''
 asdasda sd asd asd 
+ї
+
+12312312 3
+
 '''
 #
 # # task 03  == Вcтавте пропущену змінну у ф-цію print
