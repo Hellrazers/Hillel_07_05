@@ -65,12 +65,12 @@ new_text = ''
 
 
 ''' 
-Hello word
+Hello asdasdas d 
 '''
 print( f'apple = {a} and banana = {b}')
 print('apple =', a, 'and banana =', b , sep='9')
 # print('asdasd {a} and {b}',for )
-print('''apple =
+print('''apple = banana
 1
 and banana =
 2''')
