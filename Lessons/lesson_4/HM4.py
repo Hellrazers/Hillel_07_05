@@ -1,3 +1,5 @@
+from itertools import count
+from shlex import split
 
 adwentures_of_tom_sawer = """\
 Tom gave up the brush with reluctance in his .... face but alacrity
@@ -43,29 +45,44 @@ task = adwentures_of_tom_sawer.replace("\n", " ")
 """ Виведіть, скільки слів у тексті починається з Великої літери?
 """
 
+# for word in list_of_word.split()
 
+    # if  word.istitle():
+    #     count_of_word +=1
 # task 06
 """ Виведіть позицію, на якій слово Tom зустрічається вдруге
 """
 
 
 # task 07
-""" Розділіть змінну adwentures_of_tom_sawer по кінцю речення.
+"""adwentures_of_tom_sawer Розділіть змінну  по кінцю речення. stip -> ['', ' Розділіть змінну  по кінцю речення...'
 Збережіть результат у змінній adwentures_of_tom_sawer_sentences
 """
 adwentures_of_tom_sawer_sentences = None
 
 # task 08
 """ Виведіть четверте речення з adwentures_of_tom_sawer_sentences.
-Перетворіть рядок у нижній регістр.
+Перетворіть рядок у нижній регістр. '.' -> '. '  1.2  ...
 """
 
 
 # task 09
 """ Перевірте чи починається якесь речення з "By the time".
 """
+# not_ask = .count("!")  = 5
+# if not_ask > 0:
+#     split()
+
 
 
 # task 10
 """ Виведіть кількість слів останнього речення з adwentures_of_tom_sawer_sentences.
 """
+import re
+
+sentences = 'Виведіть кількість слів останнього речення з adwentures_of_tom_sawer_sentences.'
+
+list_of_re = re.findall( '\\w+',sentences)
+
+print(list_of_re)
+print(len(list_of_re))
