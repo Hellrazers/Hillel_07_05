@@ -85,15 +85,51 @@ space_academy = {
 # Рівень "Новачок" (Доступ по ключах):
 #
     # Вивести на екран ім'я декана академії.
-    #
+    # print(space_academy.get('administration{KeyError}KeyError('xenobiology123')'))
+    # print(.get('dean'))
+space_academy.get('administration').get('dean')
     # Вивести назву другої лабораторії факультету ксенобіології (xenobiology).
-    #
+space_academy['departments']['xenobiology']['labs'][-1]
     # Вивести телефон екстреного зв'язку (emergency_contact) першого студента в списку.
 #
 # Рівень "Мідл" (Цикли та фільтрація):
     #
-    # Написати цикл, який виведе імена всіх студентів та їхній середній бал (gpa).
+    # Написати цикл, який виведе імена всіх студентів та їхній середній бал (gpa). -> створить новий список з іменами студентів
     #
     # Порахувати загальний бюджет (budget_credits) всіх факультетів академії.
     #
     # Знайти всіх студентів, які навчаються на стипендії (is_on_scholarship: True), і вивести їхні ID.
+
+def age_(value):
+    return value['name']
+
+list_of_students = space_academy['students'] # список студентів 4 елментами, а кожен елемент це дікт
+list_students_after_sorting = sorted(list_of_students, key= age_ ) # 21, 19, 142 ....
+print(list_of_students)
+list_students_after_sorting_desc = sorted(list_of_students, key= lambda student: student['age'], reverse=True ) # 21, 19, 142 ....
+# print(*list_students_after_sorting, '\n')
+for student in list_students_after_sorting:
+    print(len(student['name']))
+print(space_academy)
+
+list_1 = [1, 5, 2, 8,3]
+list_str_1 = ['aaa', 'a', 'aa']
+list_1.sort()
+# list_str_1.sort(key=len)
+print(list_1)
+print(list_str_1)
+print(list_str_1.sort(key=len))
+print(list_str_1)
+
+# print()
+# print(list_1)
+
+# print(list_students_after_sorting_desc)
+# my_dict={ "data": [ 1, 2 ,3 ,4]}
+# list_elements = my_dict['data']
+# print(list_elements)
+# for k in list_elements:
+#     if k % 2 == 0:
+#         print(f"{k} - це парне значення")
+#     else:
+#         print(f"{k} - це непарне значення")
