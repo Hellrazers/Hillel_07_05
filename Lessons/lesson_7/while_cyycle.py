@@ -52,10 +52,37 @@ counter = 0
 # print(value_to_compare)
 
 
-for key in range(10): #range(10) 0....9
-    if key == 7:
-        break
+# for key in range(10): #range(10) 0....9
+#     if key == 7:
+#         break
+#
+# print(key)
+#
+# # while True:
+# #     text = input()
+# #     # if 'h' in text.lower():
+# #     #     break
+#     is_h_in_text = False
+#     for asdasd in text: # text [t,e,x,t]
+#         if char.lower() == 'h'
+#             is_h_in_text = True
+#             break
+#     if is_h_in_text:
+#         break
 
-print(key)
+
+# text_input = input("Waiting for a word with letter 'h': ")
+#
+#
+# while "h" not in text_input.lower():
+#     text_input = input("Waiting for a word with letter 'h': ")
+#
+#
+# print(f"Word with letter 'h': {text_input}")
+
+#
+# while 'h' in (value_text := input('text').lower():
+#     print(value_text)
 
 
+print('h' in 'asdasdh')
