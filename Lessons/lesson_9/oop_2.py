@@ -41,3 +41,8 @@ print(my_car.__dict__)
 my_car_1.change_year(2000)
 
 print(my_car_1._Honda__year)
+
+
+from lesson_10.func_view import greeting_1
+
+greeting_1()
