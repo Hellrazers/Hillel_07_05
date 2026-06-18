@@ -9,9 +9,10 @@
 #     if file_:
 #         file_.close()
 # [”1,2,3,4”, ”1,2,3,4,50”, ”qwerty1,2,3”]
+import pathlib
 
+from constans import BASE_DIR
 
-
-with open('\\Lessons\\lesson_11\\text.txt', 'r') as file_1:
+with open(f'{BASE_DIR}\\Lessons\\lesson_11\\text.txt', 'r') as file_1:
     text = file_1.read()
     print(text)
