@@ -14,6 +14,11 @@ class Wagon:
         self.is_head_wagon = is_head_wagon
 
     def add_passanger(self, passanger: str):
+        '''
+
+        :param passanger:
+        :return:
+        '''
         if  not self.is_head_wagon:
             self.__passangers.append(passanger)
 
