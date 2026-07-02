@@ -1,3 +1,5 @@
+__all__ = ['print_arg']
+
 def print_arg(*args):
     print(type(args)) # tuple()
     list_elements = list(args)
@@ -10,14 +12,12 @@ def print_arg(*args):
 
 
 
-print(print_arg())
 
 
 def print_kwargs(**kwargs):
     print(type(kwargs)) # dict() # Kye : value
     print(kwargs)
 
-print_kwargs(name="Bob", age=12, list_values = [1, 23,5434,54,356], dict_values = {1: 2})
 
 
 def print_args_kwars(*args, **kwargs):
@@ -26,4 +26,10 @@ def print_args_kwars(*args, **kwargs):
     print(type(kwargs))
     print(kwargs)
 
-print_args_kwars(1, 23,5345,346,45,6756,7, ['asdasd'])
+
+
+if __name__ == '__main__':
+    print_kwargs(name="Bob", age=12, list_values=[1, 23, 5434, 54, 356], dict_values={1: 2})
+    print(print_arg())
+
+    print_args_kwars(1, 23, 5345, 346, 45, 6756, 7, ['asdasd'])
