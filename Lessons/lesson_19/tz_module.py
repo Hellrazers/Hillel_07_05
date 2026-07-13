@@ -1,0 +1,13 @@
+# # pip install tzlocal pytz
+#
+# from datetime import datetime
+# import pytz
+# from tzlocal import get_localzone
+#
+#
+# server_time = '2026-07-13T12:00:00'
+# # server_time має бути рядком (наприклад, "2026-07-13T12:00:00")
+# client_time_dt = datetime.fromisoformat(server_time)  # об'єкт datetime без інформації про tz
+# local_tz = str(get_localzone())  # поточна timezone
+# client_time_dt_with_tz = pytz.timezone(local_tz).localize(client_time_dt)
+# print(local_tz)
