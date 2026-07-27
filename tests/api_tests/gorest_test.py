@@ -1,11 +1,11 @@
-
+from email._header_value_parser import get_token
 from time import time
 
 from assertpy import assert_that
 
 from contract.gorest_user.user_api import GorestUser
 
-login_= get_token()
+# login_= get_token()
 
 gorest_user = GorestUser()
 

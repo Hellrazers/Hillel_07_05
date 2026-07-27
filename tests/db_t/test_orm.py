@@ -10,7 +10,6 @@ from contract.db.orm_user_table import OrmUser
 from faker import Faker
 import random
 
-from lesson_20.psq_sql import insert_user
 
 f = Faker()
 
