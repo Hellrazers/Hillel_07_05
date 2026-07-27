@@ -10,8 +10,11 @@ def our_first_fixture():
     yield str_to_test
     print(f'I DELETE USER {our_first_fixture}')
 
-
-
+@pytest.fixture
+def create_and_delete_user(our_first_fixture):
+    print(f'I CREATE USER {our_first_fixture}')
+    yield our_first_fixture
+    print(f'I DELETE USER {our_first_fixture}')
 
 
 @pytest.fixture
@@ -36,6 +39,6 @@ def delete_user():
 #
 
 @pytest.fixture
-def create_and_delete_user(create_user, delete_user):
+def create_and_delete_user_v2(create_user, delete_user):
     create_user, delete_user = create_user, delete_user
     yield create_user, delete_user
