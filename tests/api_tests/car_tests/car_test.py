@@ -1,0 +1,33 @@
+import pytest
+
+
+def test_car_test(api):
+    print(api.brand.base_url)
+    response_car = api.car.get_car()
+    post_car = api.car.post_car(our_payload={"carBrandId": 1,"carModelId": 1,"mileage": 122})
+    car_id = post_car.json().get('data').get('id')
+    car_id_to_delete = api.car.delete_car(car_id)
+    car_reps_id = api.car.get_car_by_id(car_id, 404)
+    # requests.post('https://qauto.forstudy.space/api/cars', json={'carBrandId': 1, 'carModelId': 1, 'mileage': 122}, cookies={'sid': "s%3AR_KNsnZ9UzornjRAFuUWLd-dfcW8BSjS.e6XGK5BGs1sB8C%2FOzXBMla78%2BchTA5LOF1v7KkV23Mw"})
+
+
+@pytest.mark.api_test
+def test_car_by_id(crate_and_delete_car):
+    api , response_create_car = crate_and_delete_car
+    car_id = response_create_car.json().get('data').get('id')
+    car_reps_id = api.car.get_car_by_id(car_id)
+    assert car_reps_id.json().get('data').get('id') == car_id
+
+
+
+def test_delete_car(delete_car):
+    api, list_obj_to_delete = delete_car
+    post_car = api.car.post_car(our_payload={"carBrandId": 1,"carModelId": 1,"mileage": 122})
+    post_car_1 = api.car.post_car(our_payload={"carBrandId": 1,"carModelId": 1,"mileage": 122})
+    list_obj_to_delete += [post_car, post_car_1]
+
+
+def test_delete_all_car(api):
+    response_car = api.car.get_car()
+    for car in response_car.json().get('data'):
+        api.car.delete_car(item_id=int(car.get('id')))
