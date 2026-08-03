@@ -1,5 +1,19 @@
 import pytest
 
+from models.car_model.car_payload import CarPost
+
+
+def test_with_py(api):
+    resp = api.car.get_car_py()
+    assert resp.status_code == 200
+    assert resp.data[0].brand == "Audi"
+    payload_to_create_car = CarPost(
+        carBrandId=1,
+        carModelId=1,
+        mileage=133
+    )
+    resp_create = api.car.post_car_py(payload_to_create_car)
+    #response_car.json().get('data')[0].get('brand')
 
 def test_car_test(api):
     print(api.brand.base_url)
@@ -17,7 +31,6 @@ def test_car_by_id(crate_and_delete_car):
     car_id = response_create_car.json().get('data').get('id')
     car_reps_id = api.car.get_car_by_id(car_id)
     assert car_reps_id.json().get('data').get('id') == car_id
-
 
 
 def test_delete_car(delete_car):

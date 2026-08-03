@@ -4,15 +4,6 @@ import os
 import requests
 from dotenv import load_dotenv
 
-
-
-
-
-
-
-
-
-
 load_dotenv()
 
 logger_api = logging.getLogger('api')
