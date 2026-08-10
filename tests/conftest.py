@@ -1,7 +1,26 @@
+import os
 import random
 
 import pytest
+from dotenv import load_dotenv
 
+load_dotenv()
+
+@pytest.fixture(scope="session")
+def browser_context_args(browser_context_args):
+    return {
+        **browser_context_args,
+        "ignore_https_errors": True,
+        "viewport": {
+            "width": 1920,
+            "height": 1080,
+        },
+        "base_url": os.getenv('BASIC_URL'),
+        "http_credentials": {
+            "username": os.getenv('BASIC_AUTH_USER'),
+            "password": os.getenv('BASIC_AUTH_PASS')
+        }
+    }
 
 @pytest.fixture
 def our_first_fixture():
