@@ -4,7 +4,35 @@ import random
 import pytest
 from dotenv import load_dotenv
 
+from core.facad import ApiClient
+
 load_dotenv()
+
+@pytest.fixture(scope="session")
+def api() -> ApiClient:
+    return ApiClient()
+
+
+@pytest.fixture
+def delete_car_api(api):
+    list_obj_to_delete = []
+    yield list_obj_to_delete
+    if list_obj_to_delete:
+        for resp in list_obj_to_delete:
+            car_id_to_delete = api.car.delete_car(resp)
+            car_reps_id = api.car.get_car_by_id(resp, 404)
+
+
+@pytest.fixture
+def delete_car(api):
+    list_obj_to_delete = []
+    yield api, list_obj_to_delete
+    if list_obj_to_delete:
+        for resp in list_obj_to_delete:
+            car_id = resp.json().get('data').get('id')
+            car_id_to_delete = api.car.delete_car(car_id)
+            car_reps_id = api.car.get_car_by_id(car_id, 404)
+
 
 @pytest.fixture(scope="session")
 def browser_context_args(browser_context_args):

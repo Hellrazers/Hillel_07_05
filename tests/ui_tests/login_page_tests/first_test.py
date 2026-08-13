@@ -4,28 +4,34 @@ import pytest
 from playwright.sync_api import Page, expect
 
 
-@pytest.fixture
-def login_ui(page: Page) -> Page:
-    page.goto("/")
-    # page2 = page.context.new_page()
-    # page2.goto("https://seleniumbase.io/w3schools/iframes")
-    page.get_by_role("button", name="Sign In").click()
-    page.locator('#signinEmail').fill("nedzelnytskyidev+hillel02026@gmail.com")
-    page.get_by_role("textbox", name="Password").fill("AYf3JtDQnAcMbnc")
-    expect(page.get_by_role("button", name="Login")).to_be_visible()
-    expect(page.locator("app-signin-modal")).to_contain_text("Login")
-    page.get_by_role("button", name="Login").click()
-    page.wait_for_load_state("networkidle")
-    expect(page.locator('//app-alert')).to_have_text('You have been successfully logged in')
-    expect(page.locator('//div[@class="alert alert-success"]')).to_have_text('You have been successfully logged in')
-    yield page
 
+
+
+def test_example_2(auth_login) -> None:
+    page = auth_login
+    page.goto("/")
+    # # page2 = page.context.new_page()
+    # # page2.goto("https://seleniumbase.io/w3schools/iframes")
+    # page.get_by_role("button", name="Sign In").click()
+    # page.locator('#signinEmail').fill("nedzelnytskyidev+hillel02026@gmail.com")
+    # page.get_by_role("textbox", name="Password").fill("AYf3JtDQnAcMbnc")
+    # expect(page.get_by_role("button", name="Login")).to_be_visible()
+    # expect(page.locator("app-signin-modal")).to_contain_text("Login")
+    # page.get_by_role("button", name="Login").click()
+    # page.wait_for_load_state("networkidle")
+    # expect(page.locator('//app-alert')).to_have_text('You have been successfully logged in')
+    # expect(page.locator('//div[@class="alert alert-success"]')).to_have_text('You have been successfully logged in')
+
+
+
+def test_exp_3(page: Page) -> None:
+    page.goto("/")
 
 
 
 def test_example(login_ui) -> None:
     page = login_ui
-    # page.goto("/")
+    page.goto("/")
     # # page2 = page.context.new_page()
     # # page2.goto("https://seleniumbase.io/w3schools/iframes")
     # page.get_by_role("button", name="Sign In").click()
