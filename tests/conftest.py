@@ -3,6 +3,7 @@ import random
 
 import pytest
 from dotenv import load_dotenv
+from playwright.sync_api import Playwright, APIRequestContext, expect
 
 from core.facad import ApiClient
 
@@ -11,6 +12,29 @@ load_dotenv()
 @pytest.fixture(scope="session")
 def api() -> ApiClient:
     return ApiClient()
+
+@pytest.fixture()
+def api_browser(playwright: Playwright):
+    api_browser = playwright.request.new_context(
+        base_url=os.getenv('BASIC_URL')
+    )
+
+    yield api_browser
+
+    api_browser.dispose()
+
+@pytest.fixture()
+def api_pl(api_browser: APIRequestContext):
+    response_login = api_browser.post(
+        url='/api/auth/signin',
+        data={
+            "email": os.getenv('USER_LOGIN'),
+            "password": os.getenv('USER_PASSWORD'),
+        }
+    )
+    expect(response_login).to_be_ok()
+    yield api_browser
+
 
 
 @pytest.fixture

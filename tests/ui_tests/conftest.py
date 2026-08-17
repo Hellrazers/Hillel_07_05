@@ -1,5 +1,5 @@
 import pytest
-from playwright.sync_api import Page, expect, Browser
+from playwright.sync_api import Page, expect, Browser, APIRequestContext
 
 from ui_models.base_page import BasePage
 
@@ -39,6 +39,23 @@ def auth_login(browser_context_args, browser: Browser, api) -> Page:
         }
     )
     page  = context.new_page()
+    base_page = BasePage(page)
+    base_page.open()
+    expect(base_page.alert_danger_locator).not_to_be_visible()
+    # expect(page.locator('#userNavDropdown')).to_have_text('My profile')
+    yield page
+
+    page.close()
+    context.close()
+
+
+@pytest.fixture
+def auth_login_pl(browser_context_args, browser: Browser, api_pl: APIRequestContext) -> Page:
+    context = browser.new_context(
+        **browser_context_args,
+        storage_state=api_pl.storage_state()
+    )
+    page = context.new_page()
     base_page = BasePage(page)
     base_page.open()
     expect(base_page.alert_danger_locator).not_to_be_visible()

@@ -44,3 +44,15 @@ def test_delete_all_car(api):
     response_car = api.car.get_car()
     for car in response_car.json().get('data'):
         api.car.delete_car(item_id=int(car.get('id')))
+
+
+def test_delete_all_car_pl(api_pl):
+    response_car = api_pl.get('/api/cars')
+    assert response_car.status == 200
+    for car in response_car.json().get('data'):
+        api_pl.delete(f'/api/cars/{car.get('id')}')
+        response_get_by_id = api_pl.get(f'/api/cars/{car.get('id')}')
+        assert response_get_by_id.status == 404
+    response_car_after_delete = api_pl.get('/api/cars')
+    assert len(response_car_after_delete.json().get('data')) == 0
+
