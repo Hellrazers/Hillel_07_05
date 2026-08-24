@@ -13,11 +13,16 @@ services:
       - "5432:5432"                      # Порт для підключення
     volumes:
       - pgdata:/var/lib/postgresql/data  # Збереження даних на вашому ПК
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U teacher -d education_platform" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
-volumes:
-  pgdata:
 
-
-
+#
+#    depends_on:
+#      postgres_db:
+#        condition: service_healthy
 
 #docker compose up -d
