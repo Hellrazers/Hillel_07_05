@@ -2,7 +2,7 @@ import pytest
 
 from models.car_model.car_payload import CarPost
 
-
+@pytest.mark.api_test
 def test_with_py(api):
     resp = api.car.get_car_py()
     assert resp.status_code == 200
@@ -14,7 +14,7 @@ def test_with_py(api):
     )
     resp_create = api.car.post_car_py(payload_to_create_car)
     #response_car.json().get('data')[0].get('brand')
-
+@pytest.mark.api_test
 def test_car_test(api):
     print(api.brand.base_url)
     response_car = api.car.get_car()

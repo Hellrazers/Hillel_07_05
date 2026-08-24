@@ -1,4 +1,5 @@
 import faker
+import pytest
 from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -15,7 +16,7 @@ f = Faker()
 
 
 
-
+@pytest.mark.db_test
 def test_update():
     user_id = random.choice(range(15,180))
     exp_name = f.first_name()
@@ -43,7 +44,7 @@ def test_update():
 
 
 
-
+@pytest.mark.db_test
 # Додавання нового користувача
 def test_orm():
     # Base.metadata.create_all(engine)

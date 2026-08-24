@@ -10,7 +10,7 @@ from ui_models.car_garge import CarGaragePage
 from ui_models.fuel_expansess_page import FuelExpansessPage
 from ui_models.login_page import LoginPage
 
-
+@pytest.mark.ui_test
 def test_login_no_pom(page: Page) -> None:
     page.goto("/")
     # page2 = page.context.new_page()
@@ -24,6 +24,7 @@ def test_login_no_pom(page: Page) -> None:
     page.wait_for_load_state("networkidle")
     expect(page.locator('//app-alert')).to_have_text('You have been successfully logged in')
 
+@pytest.mark.ui_test
 @pytest.mark.parametrize('email, password, status', [
     (os.getenv('USER_LOGIN'), os.getenv('USER_PASSWORD'), 'success'), # 1 run -success
     # ('asda@gmail.com', os.getenv('USER_PASSWORD'), 'failed')
@@ -40,7 +41,7 @@ def test_2(page: Page, email, password, status) -> None:
     time.sleep(5)
 
 
-
+@pytest.mark.ui_test
 def test_create_car(auth_login, delete_car_api):
     CAR_MILEAGE  = '123'
     car_page = CarGaragePage(auth_login)
@@ -59,7 +60,7 @@ def test_create_car(auth_login, delete_car_api):
     expect(car_page.alert_success_locator).to_have_text('Car added')
 
 
-
+@pytest.mark.ui_test
 def test_create_car_pl_login(auth_login_pl, delete_car_api):
 
     CAR_MILEAGE  = '123'
@@ -78,7 +79,7 @@ def test_create_car_pl_login(auth_login_pl, delete_car_api):
     delete_car_api.append(resp_car_id)
     expect(car_page.alert_success_locator).to_have_text('Car added')
 
-
+@pytest.mark.ui_test
 def test_create_expensess(auth_login: Page):
     NUMBER_OF_LIST = '5'
     TOTAL_COST = '4'

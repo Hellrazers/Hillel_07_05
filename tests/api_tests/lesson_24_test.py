@@ -1,5 +1,3 @@
-from idlelib import tree
-
 import pytest
 
 

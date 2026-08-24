@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3'
 
 services:
   postgres_db:
@@ -11,18 +11,19 @@ services:
       POSTGRES_DB: education_platform    # Назва бази даних за замовчуванням (Database)
     ports:
       - "5432:5432"                      # Порт для підключення
-    volumes:
-      - pgdata:/var/lib/postgresql/data  # Збереження даних на вашому ПК
+#    volumes:
+#      - pgdata:/var/lib/postgresql/data  # Збереження даних на вашому ПК
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U teacher -d education_platform" ]
       interval: 5s
       timeout: 5s
       retries: 5
 
-
+  test:
+    build: .
+    depends_on:
+          - postgres_db
 #
-#    depends_on:
-#      postgres_db:
-#        condition: service_healthy
+#
 
 #docker compose up -d

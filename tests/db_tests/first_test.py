@@ -1,3 +1,4 @@
+import os
 import random
 import psycopg2
 import pytest
@@ -8,10 +9,10 @@ f = Faker()
 
 # Параметри підключення
 # База даних повинна існувати на зазначеному хості, та юзер повинен мати право на читання цього запису
-dbname = 'education_platform'
-user = 'teacher'
-password = 'super_password'
-host = 'localhost'
+dbname = os.getenv('POSTGRES_DB', 'education_platform')
+user = os.getenv('POSTGRES_USER', 'teacher')
+password = os.getenv('POSTGRES_PASSWORD', 'super_password')
+host = '172.23.48.1'
 port = '5432'
 
 
@@ -39,7 +40,7 @@ def connection():
         connection.close()
         print("PostgreSQL connection is closed")
 
-
+@pytest.mark.db_test
 def test_first_db(connection):
     exp_result_name, exp_result_desc = f.name(), f.job()
     cursor, conn = connection
@@ -55,7 +56,7 @@ def test_first_db(connection):
     conn.commit()
 
 
-
+@pytest.mark.db_test
 def test_2(connection):
     cursor, conn = connection
 

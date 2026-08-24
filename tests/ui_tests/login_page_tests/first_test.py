@@ -6,7 +6,7 @@ from playwright.sync_api import Page, expect
 
 
 
-
+@pytest.mark.ui_test
 def test_example_2(auth_login) -> None:
     page = auth_login
     page.goto("/")
@@ -23,12 +23,12 @@ def test_example_2(auth_login) -> None:
     # expect(page.locator('//div[@class="alert alert-success"]')).to_have_text('You have been successfully logged in')
 
 
-
+@pytest.mark.ui_test
 def test_exp_3(page: Page) -> None:
     page.goto("/")
 
 
-
+@pytest.mark.ui_test
 def test_example(login_ui) -> None:
     page = login_ui
     page.goto("/")
@@ -46,6 +46,7 @@ def test_example(login_ui) -> None:
 
     time.sleep(5)
 
+@pytest.mark.ui_test
 def test_hyper_link(page: Page) -> None:
     page.goto("/")
     # Get page after a specific action (e.g. clicking a link)
@@ -60,7 +61,7 @@ def test_hyper_link(page: Page) -> None:
     # print(new_page.title())
 
 
-
+@pytest.mark.ui_test
 def test_checkbox(page: Page):
     page.goto("https://faculty.washington.edu/chudler/java/boxes.html")
     all_checkbox =  page.locator('input[type="checkbox"]').all()
@@ -74,7 +75,7 @@ def test_checkbox(page: Page):
             expect(checkbox_uncheck).to_be_checked()
 
 
-
+@pytest.mark.ui_test
 def test_iframe(page: Page):
     page.goto('https://seleniumbase.io/w3schools/iframes')
     iframe_obj = page.frame_locator('#iframeResult')
@@ -84,15 +85,15 @@ def test_iframe(page: Page):
     expect(locator_p).to_have_text('123123Use CSS width & height to specify the iframe size:')
     print(locator_p.inner_text())
 
-
-def dialog_click(dialog, type_click=True):
+@pytest.mark.ui_test
+def test_dialog_click(dialog, type_click=True):
     print(dialog.message)
     if type_click:
         dialog.accept()
     else:
         dialog.dissmiss()
 
-
+@pytest.mark.ui_test
 def test_dilog_wind(page: Page):
         page.goto('https://testpages.eviltester.com/pages/basics/alerts-javascript/')
         page.on("dialog", lambda dialog: dialog_click(dialog=dialog))
