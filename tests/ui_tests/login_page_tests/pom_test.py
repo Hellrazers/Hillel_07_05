@@ -40,7 +40,7 @@ def test_2(page: Page, email, password, status) -> None:
     car_garage.button_add_car.click()
     time.sleep(5)
 
-
+@pytest.mark.api_test
 @pytest.mark.ui_test
 def test_create_car(auth_login, delete_car_api):
     CAR_MILEAGE  = '123'
@@ -57,7 +57,7 @@ def test_create_car(auth_login, delete_car_api):
         print(response_info)
     resp_car_id = response_info.value.json()['data']['id']
     delete_car_api.append(resp_car_id)
-    expect(car_page.alert_success_locator).to_have_text('Car added')
+    expect(car_page.alert_success_locator).to_have_text('Car added1111')
 
 
 @pytest.mark.ui_test

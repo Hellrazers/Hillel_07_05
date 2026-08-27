@@ -23,7 +23,7 @@ def login_ui(page: Page) -> Page:
 
 
 @pytest.fixture
-def auth_login(browser_context_args, browser: Browser, api) -> Page:
+def auth_login(browser_context_args, browser: Browser, api, ui_test_fixture) -> Page:
     token_api = api.api.token
     context = browser.new_context(
         **browser_context_args,

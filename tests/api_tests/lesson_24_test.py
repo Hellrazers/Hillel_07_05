@@ -41,6 +41,7 @@ def test_logout(my_fixture):
 
 @pytest.mark.parametrize('test_param', [*list(range(1,4))])
 @pytest.mark.parametrize('my_fixture', [*list(range(4,7))])
+@pytest.mark.api_test
 def test_invalid_param(test_param, my_fixture):
     print(f"Test with invalid param value: {test_param} {my_fixture}")
 
