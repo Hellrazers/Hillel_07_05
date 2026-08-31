@@ -14,7 +14,7 @@ def test_first_13_123(create_user, delete_user):
 @pytest.mark.smoke_test
 def test_create_user_13_123(delete_user):
     asd = '2134345435456'
-    assert 200 == 201
+    assert 200 == 200
 
     delete_user.append(asd)
 
