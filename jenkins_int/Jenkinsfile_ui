@@ -1,23 +1,9 @@
 pipeline {
-    agent {
-        docker {
-            image 'mcr.microsoft.com/playwright/python:v1.61.0-noble'
-            // Required so the container can install packages and access the workspace cleanly
-            args '-u 0:0'
-        }
-    }
+    agent any
 
     parameters {
         string(name: 'BASIC_URL', defaultValue: 'https://qauto.forstudy.space', description: 'Base URL under test')
     }
-
-    /*
-    environment {
-        // Bind Jenkins credentials for user login/password if configured
-        USER_EMAIL_LOGIN    = credentials('user-email-cred-id')
-        USER_PASSWORD_LOGIN = credentials('user-pass-cred-id')
-    }
-    */
 
     stages {
         stage('Checkout') {
@@ -26,38 +12,29 @@ pipeline {
             }
         }
 
-        stage('Install dependencies') {
+        stage('Run Tests in Docker') {
             steps {
                 sh '''
-                    apt-get update && apt-get install -y python3-venv
-                    python3 -m venv venv
-                    . venv/bin/activate
-                    pip install --upgrade pip
-                    # Note: verify if your repo filename is requirements.txt or requirement.txt
-                    pip install -r requirement.txt
-                '''
-            }
-        }
-
-        stage('Run tests') {
-            steps {
-                sh '''
-                    . venv/bin/activate
-
-                    # Official Playwright image has browser binaries preinstalled;
-                    # only run install if you need additional browser dependencies:
-                    playwright install firefox
-
-                    # Write environment configuration
+                    # Write .env file in the workspace
                     cat <<EOF > .env
-                    BASIC_URL=${BASIC_URL}
-                    USER_LOGIN=${USER_EMAIL_LOGIN:-guest}
-                    USER_PASSWORD=${USER_PASSWORD_LOGIN:-default_pass}
-                    BASIC_AUTH_USER=guest
-                    BASIC_AUTH_PASS=welcome2qauto
-                    EOF
+BASIC_URL=${BASIC_URL}
+USER_LOGIN=${USER_EMAIL_LOGIN:-guest}
+USER_PASSWORD=${USER_PASSWORD_LOGIN:-default_pass}
+BASIC_AUTH_USER=guest
+BASIC_AUTH_PASS=welcome2qauto
+EOF
 
-                    pytest -m ui_test --alluredir=allure-results --browser=firefox
+                    # Run tests inside Playwright container mounting the workspace
+                    docker run --rm \
+                        -u 0:0 \
+                        -v "${WORKSPACE}":/app \
+                        -w /app \
+                        mcr.microsoft.com/playwright/python:v1.61.0-noble \
+                        bash -c "
+                            pip install -r requirement.txt
+                            playwright install firefox
+                            pytest -m ui_test --alluredir=allure-results --browser=firefox
+                        "
                 '''
             }
         }
