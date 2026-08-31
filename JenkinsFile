@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Install dependencies') {
             steps {
-                if (env.MARKS == 'ui_test') {
+                if (params.MARKS == 'ui_test') {
                 sh '''
                 apt-get update && apt-get install -y python3-venv
                 python3 -m venv venv
