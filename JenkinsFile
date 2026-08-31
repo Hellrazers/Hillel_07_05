@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+//     parameters {
+//         string(name: 'UI_URL', defaultValue: 'https://qauto.forstudy.space', description: 'Who should I say hello to?')
+//         choice(name: 'MARKS', choices: ['api_test', 'Two', 'Three'], description: 'Pick something')
+//         booleanParam(name: 'IS_BOOL', defaultValue: true, description: 'Some description here ')
+//     }
+
     stages {
         stage('Git hub clone rep') {
             steps {
@@ -41,9 +47,9 @@ pipeline {
                         echo "BASIC_URL=${BASIC_URL}" > .env
                         echo "USER_LOGIN=${USER_EMAIL_LOGIN}" >> .env
                         echo "USER_PASSWORD=${USER_PASSWORD_LOGIN}" >> .env
-                        echo "AUTH_BASIC_USER=guest" >> .env
-                        echo "AUTH_BASIC_PASSWORD=welcome2qauto" >> .env
-                        pytest -m ${MARKS} --alluredir=allure-results --browser=firefox'''
+                        echo "BASIC_AUTH_USER=guest" >> .env
+                        echo "BASIC_AUTH_PASS=welcome2qauto" >> .env
+                        pytest -m ui_test --alluredir=allure-results --browser=firefox'''
                     }
                     else {
                         sh '''
