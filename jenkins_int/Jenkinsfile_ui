@@ -1,44 +1,71 @@
 pipeline {
-   agent { docker { image 'mcr.microsoft.com/playwright/python:v1.61.0-noble' } }
+    agent {
+        docker {
+            image 'mcr.microsoft.com/playwright/python:v1.61.0-noble'
+            // Required so the container can install packages and access the workspace cleanly
+            args '-u 0:0'
+        }
+    }
 
     parameters {
-        string(name: 'BASIC_URL', defaultValue: 'https://qauto.forstudy.space', description: 'Who should I say hello to?')
-            }
+        string(name: 'BASIC_URL', defaultValue: 'https://qauto.forstudy.space', description: 'Base URL under test')
+    }
+
+    /*
+    environment {
+        // Bind Jenkins credentials for user login/password if configured
+        USER_EMAIL_LOGIN    = credentials('user-email-cred-id')
+        USER_PASSWORD_LOGIN = credentials('user-pass-cred-id')
+    }
+    */
 
     stages {
-        stage('Git hub clone rep') {
+        stage('Checkout') {
             steps {
-                // Використання облікових даних для клонування репозиторію
                 git branch: 'main', url: 'https://github.com/Hellrazers/Hillel_07_05.git'
             }
         }
+
         stage('Install dependencies') {
             steps {
-              sh '''
+                sh '''
                     apt-get update && apt-get install -y python3-venv
                     python3 -m venv venv
                     . venv/bin/activate
+                    pip install --upgrade pip
+                    # Note: verify if your repo filename is requirements.txt or requirement.txt
                     pip install -r requirement.txt
-                    '''
+                '''
             }
         }
+
         stage('Run tests') {
             steps {
                 sh '''
-                        . venv/bin/activate
-                        playwright install --with-deps
-                        echo "BASIC_URL=${BASIC_URL}" > .env
-                        echo "USER_LOGIN=${USER_EMAIL_LOGIN}" >> .env
-                        echo "USER_PASSWORD=${USER_PASSWORD_LOGIN}" >> .env
-                        echo "BASIC_AUTH_USER=guest" >> .env
-                        echo "BASIC_AUTH_PASS=welcome2qauto" >> .env
-                        pytest -m ui_test --alluredir=allure-results --browser=firefox'''
+                    . venv/bin/activate
+
+                    # Official Playwright image has browser binaries preinstalled;
+                    # only run install if you need additional browser dependencies:
+                    playwright install firefox
+
+                    # Write environment configuration
+                    cat <<EOF > .env
+                    BASIC_URL=${BASIC_URL}
+                    USER_LOGIN=${USER_EMAIL_LOGIN:-guest}
+                    USER_PASSWORD=${USER_PASSWORD_LOGIN:-default_pass}
+                    BASIC_AUTH_USER=guest
+                    BASIC_AUTH_PASS=welcome2qauto
+                    EOF
+
+                    pytest -m ui_test --alluredir=allure-results --browser=firefox
+                '''
             }
         }
     }
+
     post {
         always {
-            allure commandline: 'allure-results', includeProperties: false, jdk: '', resultPolicy: 'LEAVE_AS_IS', results: [[path: 'allure-results']]
+            allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
         }
     }
 }
