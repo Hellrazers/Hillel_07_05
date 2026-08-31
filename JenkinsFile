@@ -10,25 +10,26 @@ pipeline {
         }
         stage('Install dependencies') {
             steps {
-                if (params.MARKS == 'ui_test') {
-                sh '''
-                apt-get update && apt-get install -y python3-venv
-                python3 -m venv venv
-                . venv/bin/activate
-                pip install -r requirement.txt
-                playwright install
-                '''
+                script {
+                    if (params.MARKS == 'ui_test') {
+                    sh '''
+                    apt-get update && apt-get install -y python3-venv
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip install -r requirement.txt
+                    playwright install
+                    '''
 
+                    }
+                    else {
+                     sh '''
+                    apt-get update && apt-get install -y python3-venv
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip install -r requirement.txt
+                    '''
+                    }
                 }
-                else {
-                 sh '''
-                apt-get update && apt-get install -y python3-venv
-                python3 -m venv venv
-                . venv/bin/activate
-                pip install -r requirement.txt
-                '''
-                }
-
             }
         }
         stage('Run tests') {
