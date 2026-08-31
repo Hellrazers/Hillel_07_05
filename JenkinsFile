@@ -43,7 +43,7 @@ pipeline {
                     if (params.MARKS == 'ui_test') {
                         sh '''
                         . venv/bin/activate
-                        playwright install
+                        playwright install --with-deps
                         echo "BASIC_URL=${BASIC_URL}" > .env
                         echo "USER_LOGIN=${USER_EMAIL_LOGIN}" >> .env
                         echo "USER_PASSWORD=${USER_PASSWORD_LOGIN}" >> .env

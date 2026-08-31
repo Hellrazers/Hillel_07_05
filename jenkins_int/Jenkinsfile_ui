@@ -1,0 +1,44 @@
+pipeline {
+   agent { docker { image 'mcr.microsoft.com/playwright/python:v1.61.0-noble' } }
+
+    parameters {
+        string(name: 'BASIC_URL', defaultValue: 'https://qauto.forstudy.space', description: 'Who should I say hello to?')
+            }
+
+    stages {
+        stage('Git hub clone rep') {
+            steps {
+                // Використання облікових даних для клонування репозиторію
+                git branch: 'main', url: 'https://github.com/Hellrazers/Hillel_07_05.git'
+            }
+        }
+        stage('Install dependencies') {
+            steps {
+              sh '''
+                    apt-get update && apt-get install -y python3-venv
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip install -r requirement.txt
+                    '''
+            }
+        }
+        stage('Run tests') {
+            steps {
+                sh '''
+                        . venv/bin/activate
+                        playwright install --with-deps
+                        echo "BASIC_URL=${BASIC_URL}" > .env
+                        echo "USER_LOGIN=${USER_EMAIL_LOGIN}" >> .env
+                        echo "USER_PASSWORD=${USER_PASSWORD_LOGIN}" >> .env
+                        echo "BASIC_AUTH_USER=guest" >> .env
+                        echo "BASIC_AUTH_PASS=welcome2qauto" >> .env
+                        pytest -m ui_test --alluredir=allure-results --browser=firefox'''
+            }
+        }
+    }
+    post {
+        always {
+            allure commandline: 'allure-results', includeProperties: false, jdk: '', resultPolicy: 'LEAVE_AS_IS', results: [[path: 'allure-results']]
+        }
+    }
+}
