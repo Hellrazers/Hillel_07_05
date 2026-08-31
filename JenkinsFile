@@ -5,7 +5,7 @@ pipeline {
         stage('Git hub clone rep') {
             steps {
                 // Використання облікових даних для клонування репозиторію
-                git branch: ${BRANCH_EXECUTE}, url: 'https://github.com/Hellrazers/Hillel_07_05.git'
+                git branch: '${BRANCH_EXECUTE}', url: 'https://github.com/Hellrazers/Hillel_07_05.git'
             }
         }
         stage('Install dependencies') {
