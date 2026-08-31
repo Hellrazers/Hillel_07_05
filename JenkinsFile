@@ -34,28 +34,28 @@ pipeline {
         }
         stage('Run tests') {
             steps {
-             script {
+                script {
                     if (params.MARKS == 'ui_test') {
-                    sh '''
-                    . venv/bin/activate
-                    echo "BASIC_URL=${BASIC_URL}" > .env
-                    echo "USER_LOGIN=${USER_EMAIL_LOGIN}" >> .env
-                    echo "USER_PASSWORD=${USER_PASSWORD_LOGIN}" >> .env
-                    echo "AUTH_BASIC_USER=guest" >> .env
-                    echo "AUTH_BASIC_PASSWORD=welcome2qauto" >> .env
-                    pytest -m ${MARKS} --alluredir=allure-results --browser=firefox'''
+                        sh '''
+                        . venv/bin/activate
+                        echo "BASIC_URL=${BASIC_URL}" > .env
+                        echo "USER_LOGIN=${USER_EMAIL_LOGIN}" >> .env
+                        echo "USER_PASSWORD=${USER_PASSWORD_LOGIN}" >> .env
+                        echo "AUTH_BASIC_USER=guest" >> .env
+                        echo "AUTH_BASIC_PASSWORD=welcome2qauto" >> .env
+                        pytest -m ${MARKS} --alluredir=allure-results --browser=firefox'''
                     }
                     else {
-                    sh '''
-                    . venv/bin/activate
-                    echo "BASIC_URL=${BASIC_URL}" > .env
-                    echo "USER_LOGIN=${USER_EMAIL_LOGIN}" >> .env
-                    echo "USER_PASSWORD=${USER_PASSWORD_LOGIN}" >> .env
-                    echo "AUTH_BASIC_USER=guest" >> .env
-                    echo "AUTH_BASIC_PASSWORD=welcome2qauto" >> .env
-                    pytest -m ${MARKS} --alluredir=allure-results'''
-                        }
-
+                        sh '''
+                        . venv/bin/activate
+                        echo "BASIC_URL=${BASIC_URL}" > .env
+                        echo "USER_LOGIN=${USER_EMAIL_LOGIN}" >> .env
+                        echo "USER_PASSWORD=${USER_PASSWORD_LOGIN}" >> .env
+                        echo "AUTH_BASIC_USER=guest" >> .env
+                        echo "AUTH_BASIC_PASSWORD=welcome2qauto" >> .env
+                        pytest -m ${MARKS} --alluredir=allure-results'''
+                    }
+                }
             }
         }
     }
