@@ -12,10 +12,22 @@ pipeline {
             }
         }
 
-        stage('Run Tests in Docker') {
+        stage('Run Tests') {
             steps {
                 sh '''
-                    # Write .env file in the workspace
+                    # Set up Python virtual environment
+                    python3 -m venv venv || python -m venv venv
+                    . venv/bin/activate
+
+                    # Install project dependencies
+                    pip install --upgrade pip
+                    pip install -r requirement.txt
+
+                    # Install Playwright browser dependencies & Firefox
+                    playwright install-deps firefox
+                    playwright install firefox
+
+                    # Generate .env configuration
                     cat <<EOF > .env
 BASIC_URL=${BASIC_URL}
 USER_LOGIN=${USER_EMAIL_LOGIN:-guest}
@@ -24,17 +36,8 @@ BASIC_AUTH_USER=guest
 BASIC_AUTH_PASS=welcome2qauto
 EOF
 
-                    # Run tests inside Playwright container mounting the workspace
-                    docker run --rm \
-                        -u 0:0 \
-                        -v "${WORKSPACE}":/app \
-                        -w /app \
-                        mcr.microsoft.com/playwright/python:v1.61.0-noble \
-                        bash -c "
-                            pip install -r requirement.txt
-                            playwright install firefox
-                            pytest -m ui_test --alluredir=allure-results --browser=firefox
-                        "
+                    # Run tests
+                    pytest -m ui_test --alluredir=allure-results --browser=firefox
                 '''
             }
         }
