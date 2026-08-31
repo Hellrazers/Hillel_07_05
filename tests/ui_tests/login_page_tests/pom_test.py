@@ -40,7 +40,6 @@ def test_2(page: Page, email, password, status) -> None:
     car_garage.button_add_car.click()
     time.sleep(5)
 
-@pytest.mark.api_test
 @pytest.mark.ui_test
 def test_create_car(auth_login, delete_car_api):
     CAR_MILEAGE  = '123'
